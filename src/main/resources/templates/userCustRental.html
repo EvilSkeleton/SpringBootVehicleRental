@@ -32,10 +32,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
               <li class="nav-item">
-                <a class="nav-link active" th:href="@{'/'}">All Rentals</a>
+                <a class="nav-link" th:href="@{'/'}">All Rentals</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" th:href="@{'/new'}">All Customers</a>
+                <a class="nav-link active" th:href="@{'/new'}">All Customers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" th:href="@{'/new'}">All Requests</a>
@@ -49,7 +49,14 @@
       <div style="padding-top:100px">
         <tr>
           <div class="col-sm-5" align="center">
-            <div class="panel-body" align="center">
+            <form action="#" th:action="@{'/scr/' + ${name}}">
+              <tr>
+                <label class="form-label">Search Name</label>
+              <td><input id="name" type="text" class="form-control" placeholder="Name" /></td>
+              <input type="submit" value="Search" /><!--th:href="@{'/ucr/' + ${name}}"-->
+            </tr>
+          </form>
+            <!-- <div class="panel-body" align="center">
               <table class="table">
                 <thead class="thead-dark">
                   <tr>
@@ -71,16 +78,16 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> -->
           </div>
         </tr>
-        <tr>
+        <!-- <tr>
           <div align="center">
             <h3>
               <button th:href="@{'/new'}">Add new</button>
             </h3>
           </div>
-        </tr>
+        </tr> -->
       </div>
     </center>
   </body>

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
  
 import rohit.vehicle.domain.Rental;
-import rohit.vehicle.domain.User;
+// import rohit.vehicle.domain.User;
 import rohit.vehicle.service.UserService;
  
 @Controller
@@ -26,31 +26,33 @@ public class UserController {
     @GetMapping("/")
     public String viewHomePage(Model model) {
         List<Rental> listrentals = service.listAll();
-        Predicate<Rental> condition = rental -> rental.getV_status().equals("Idle");
+        Predicate<Rental> condition = rental -> rental.getV_status().equals("Running");
         listrentals.removeIf(condition);
         model.addAttribute("listrental", listrentals);
         System.out.print("Get / ");
-        return "home";
+        return "userHome";
     }
  
     //book a new rental
-    @GetMapping("/new")
+    @GetMapping("/uer")
     public String add(Model model) {
         model.addAttribute("rental", new Rental());
-        return "editRental";
+        return "userEditRental";
     }
  
     //save new rental booking
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveRental(@ModelAttribute("rental") Rental rent) {
+        rent.setV_status("Running");
+        // rent.setV_cust("Rohit");
         service.saveRental(rent);
         return "redirect:/";
     }
  
     //edit new rental booking
-    @RequestMapping("/edit/{v_id}")
+    @RequestMapping("/book/{v_id}")
     public ModelAndView showEditRentalPage(@PathVariable(name = "v_id") int id) {
-        ModelAndView mav = new ModelAndView("editRental");
+        ModelAndView mav = new ModelAndView("bookRental");
         Rental rent = service.get(id);
         mav.addObject("rental", rent);
         return mav;
@@ -58,14 +60,14 @@ public class UserController {
     }
     
     //view all booked rentals
-    @GetMapping("/custRentals")
-    public String viewCustRentalsPage(Model model,User usr) {
+    @GetMapping("/ucr")
+    public String viewCustRentalsPage(Model model) {
         List<Rental> listrentals = service.listAll();
-        Predicate<Rental> condition = rental -> rental.getV_cust().equals(usr.getU_name());
-        listrentals.removeIf(condition);
+        // Predicate<Rental> condition = rental -> rental.getV_cust().equals("Rohit");
+        // listrentals.removeIf(condition);
         model.addAttribute("listrental", listrentals);
         System.out.print("Get / ");
-        return "custRental";
+        return "userCustRental";
     }
 
     //finish rental usage
@@ -74,5 +76,15 @@ public class UserController {
         //modify the rental list to delete customer name and its status to change to idle
         service.finishRental(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/scr/{name}")
+    public String showCustRentalsPage(Model model,@PathVariable(name = "name") String name) {
+        List<Rental> listrentals = service.listAll();
+        Predicate<Rental> condition = rental -> rental.getV_cust().equals(name);
+        listrentals.removeIf(condition);
+        model.addAttribute("listrental", listrentals);
+        System.out.print("Get / ");
+        return "showCustRental";
     }
 }

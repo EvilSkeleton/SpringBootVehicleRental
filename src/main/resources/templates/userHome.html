@@ -16,7 +16,17 @@
       font-size: 20px;
       --bs-navbar-padding-y: 0rem;
     }
-
+    .button {
+    display: block;
+    width: 200px;
+    height: 30px;
+    background: #212020;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+    color: white;
+    line-height: 10px;
+}
   </style>
 
   <body>
@@ -35,10 +45,10 @@
                 <a class="nav-link active" th:href="@{'/'}">All Rentals</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" th:href="@{'/new'}">All Customers</a>
+                <a class="nav-link" th:href="@{/ucr}">Your Rentals</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" th:href="@{'/new'}">All Requests</a>
+                <a class="nav-link" th:href="@{'/ucr'}">All Requests</a>
               </li>
             </ul>
           </div>
@@ -57,8 +67,7 @@
                     <th>Rental Name</th>
                     <th>Rental Status</th>
                     <th>Rental Model</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Book Rental</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,8 +76,7 @@
                     <td th:text="${rental.v_name}">Rental Name</td>
                     <td th:text="${rental.v_status}">Rental Status</td>
                     <td th:text="${rental.v_model}">Rental Model</td>
-                    <td><a th:href="@{'/edit/' + ${rental.v_id}}">Edit</a></td>
-                    <td><a th:href="@{'/delete/' + ${rental.v_id}}">Delete</a>
+                    <td><a th:href="@{'/book/' + ${rental.v_id}}">Book</a></td>
                     </td>
                   </tr>
                 </tbody>
@@ -76,13 +84,17 @@
             </div>
           </div>
         </tr>
-        <tr>
-          <div align="center">
-            <h3>
-              <button th:href="@{'/new'}">Add new</button>
-            </h3>
-          </div>
-        </tr>
+        <!-- <tr> -->
+          <!-- <div align="center"> -->
+            <!-- <h3> -->
+              <!-- <button onclick="/uer">Add new</button> -->
+
+              <!-- <input type="submit" href="uer" value="Add new"> -->
+
+              <!-- <a class="button" href="uer">Add New</a>
+            </h3> -->
+          <!-- </div> -->
+        <!-- </tr> -->
       </div>
     </center>
   </body>
