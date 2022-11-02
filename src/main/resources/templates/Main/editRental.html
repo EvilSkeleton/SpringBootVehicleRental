@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Create New Rental</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+    <header>
+      <nav class="navbar navbar-expand-md fixed-top" style="background-color: #4C3A51">
+        <div class="container-fluid">
+          <a class="navbar-brand" th:href="@{'/'}" style="color: white">Vehicle Rental System</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{'/'}">All Rentals</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{'/new'}">All Customers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{'/new'}">All Requests</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div align="center" style="padding-top:100px">
+      <h1>Rental Details</h1>
+      <br />
+      <div class="col-sm-4">
+        <form action="#" th:action="@{/save}" th:object="${rental}" method="post">
+
+
+          <div alight="left">
+            <tr>
+              <label class="form-label">Rental Name</label>
+              <td><input type="hidden" th:field="*{v_id}" /> <input type="text" th:field="*{v_name}" class="form-control" placeholder="Rental Name" /></td>
+            </tr>
+          </div>
+
+          <div alight="left">
+
+            <tr>
+              <label class="form-label">Rental Status</label>
+              <td>
+                <select class="form-control" th:field="*{v_status}" aria-placeholder="Status">
+                  <option value="Idle">Idle</option>
+                  <option value="Running">Running</option>
+                </select>
+              </td>
+            </tr>
+          </div>
+          <div alight="left">
+            <tr>
+              <label class="form-label">Rental Model</label>
+              <td><input type="text" th:field="*{v_model}" class="form-control" placeholder="Model" /></td>
+            </tr>
+          </div>
+          <br>
+          <tr>
+            <td colspan="2"><button type="submit" class="btn btn-info">Save</button>
+            </td>
+          </tr>
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>
