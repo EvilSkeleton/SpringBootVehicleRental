@@ -5,33 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rohit.vehicle.domain.Rental;
-import rohit.vehicle.repository.AdminRepository;
 import rohit.vehicle.repository.RentalRepository;
-import rohit.vehicle.repository.UserRepository;
 
 @Service
 public class UserService {
-	
-	@Autowired
-    private AdminRepository adminRepo;
-
-    @Autowired
-    private UserRepository userRepo;
 
     @Autowired
     private RentalRepository rentRepo;
 	
-    //view all rental vehicles availible to rent
+    //view all rental vehicles
 	public List<Rental> listAll() {
-        //filter all 
         return rentRepo.findAll();
-    }
-
-    //view all rental vehicle in use by this user
-    public List<Rental> listAllInUse() {
-        List<Rental> rentList = rentRepo.findAll();
-        //filter all 
-        return rentList;
     }
 
     //edit rental details(Rental Status)
@@ -39,5 +23,16 @@ public class UserService {
         rentRepo.save(rent);
     }
 
-    //
+    //locate by id from vehicles
+    public Rental get(Integer id) {
+        return rentRepo.findById(id).get();
+    }
+
+    //finish rental
+    public void finishRental(Integer id) {
+        Rental rent = rentRepo.findById(id).get();
+        rent.setV_status("Idle");
+        rent.setV_cust(null);
+        rentRepo.save(rent);
+    }
 }

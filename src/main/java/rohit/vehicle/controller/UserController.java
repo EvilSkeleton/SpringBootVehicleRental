@@ -15,17 +15,19 @@ import org.springframework.web.servlet.ModelAndView;
  
 import rohit.vehicle.domain.Rental;
 import rohit.vehicle.domain.User;
-import rohit.vehicle.service.AdminService;
+import rohit.vehicle.service.UserService;
  
 @Controller
 public class UserController {
 @Autowired
-    private AdminService service;
+    private UserService service;
  
     //view all availible rentals
     @GetMapping("/")
     public String viewHomePage(Model model) {
         List<Rental> listrentals = service.listAll();
+        Predicate<Rental> condition = rental -> rental.getV_status().equals("Idle");
+        listrentals.removeIf(condition);
         model.addAttribute("listrental", listrentals);
         System.out.print("Get / ");
         return "home";
@@ -48,7 +50,7 @@ public class UserController {
     //edit new rental booking
     @RequestMapping("/edit/{v_id}")
     public ModelAndView showEditRentalPage(@PathVariable(name = "v_id") int id) {
-        ModelAndView mav = new ModelAndView("new");
+        ModelAndView mav = new ModelAndView("editRental");
         Rental rent = service.get(id);
         mav.addObject("rental", rent);
         return mav;
@@ -63,13 +65,14 @@ public class UserController {
         listrentals.removeIf(condition);
         model.addAttribute("listrental", listrentals);
         System.out.print("Get / ");
-        return "home";
+        return "custRental";
     }
 
     //finish rental usage
-    @RequestMapping("/delete/{v_id}")
+    @RequestMapping("/finish/{v_id}")
     public String deleteRental(@PathVariable(name = "v_id") int id) {
-        service.deleteRental(id);
+        //modify the rental list to delete customer name and its status to change to idle
+        service.finishRental(id);
         return "redirect:/";
     }
 }

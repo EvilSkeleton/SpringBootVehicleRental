@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.test</groupId>
-	<artifactId>SpringBootVehicleRental-1</artifactId>
+	<artifactId>SpringBootVehicleRental</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootVehicleRental-1</name>
+	<name>SpringBootVehicleRental</name>
 	<description>Vehicle Rental System using Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
