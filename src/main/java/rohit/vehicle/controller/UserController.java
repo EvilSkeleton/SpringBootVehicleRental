@@ -23,7 +23,7 @@ public class UserController {
     private UserService service;
  
     //view all availible rentals
-    @GetMapping("/")
+    @GetMapping("/user")
     public String viewHomePage(Model model) {
         List<Rental> listrentals = service.listAll();
         Predicate<Rental> condition = rental -> rental.getV_status().equals("Running");
@@ -46,7 +46,7 @@ public class UserController {
         rent.setV_status("Running");
         // rent.setV_cust("Rohit");
         service.saveRental(rent);
-        return "redirect:/";
+        return "redirect:/user";
     }
  
     //edit new rental booking
@@ -59,12 +59,17 @@ public class UserController {
         
     }
     
-    //view all booked rentals
+    //search all booked rentals
     @GetMapping("/ucr")
     public String viewCustRentalsPage(Model model) {
         List<Rental> listrentals = service.listAll();
-        // Predicate<Rental> condition = rental -> rental.getV_cust().equals("Rohit");
-        // listrentals.removeIf(condition);
+        // for(Rental rental : listrentals)
+        // {
+        //     if(rental.getV_cust() == null)
+        //     {
+        //         listrentals.remove(rental);
+        //     }
+        // }
         model.addAttribute("listrental", listrentals);
         System.out.print("Get / ");
         return "userCustRental";
@@ -75,13 +80,20 @@ public class UserController {
     public String deleteRental(@PathVariable(name = "v_id") int id) {
         //modify the rental list to delete customer name and its status to change to idle
         service.finishRental(id);
-        return "redirect:/";
+        return "redirect:/user";
     }
 
+    //view all booked rentals
     @GetMapping("/scr/{name}")
     public String showCustRentalsPage(Model model,@PathVariable(name = "name") String name) {
         List<Rental> listrentals = service.listAll();
-        Predicate<Rental> condition = rental -> rental.getV_cust().equals(name);
+        // try {
+        //     Predicate<Rental> condition = rental -> rental.getV_cust().equals(name);
+        //     listrentals.removeIf(condition);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+        Predicate<Rental> condition = rental -> rental.getV_status().equalsIgnoreCase("Idle");
         listrentals.removeIf(condition);
         model.addAttribute("listrental", listrentals);
         System.out.print("Get / ");
