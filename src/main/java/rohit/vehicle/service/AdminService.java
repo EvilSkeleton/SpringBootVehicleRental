@@ -57,5 +57,5 @@ public class AdminService {
         return userRepo.findById(id).get();
     }
     
-    //accept rental request
+    //accept rental request(NOT PRIORITY)
 }    

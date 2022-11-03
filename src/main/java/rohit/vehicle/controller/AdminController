@@ -31,23 +31,23 @@ public class AdminController {
     }
  
     //Add New Rental
-    @GetMapping("/new")
+    @GetMapping("/adminAddRental")
     public String add(Model model) {
         model.addAttribute("rental", new Rental());
-        return "new";
+        return "adminAddRental";
     }
  
     //Save Rental details
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveRental", method = RequestMethod.POST)
     public String saveRental(@ModelAttribute("rental") Rental rent) {
         servAdmin.saveRental(rent);
-        return "redirect:/";
+        return "redirect:/admin";
     }
  
     //Edit Rental details
-    @RequestMapping("/edit/{v_id}")
-    public ModelAndView showEditRentalPage(@PathVariable(name = "v_id") int id) {
-        ModelAndView mav = new ModelAndView("editRental");
+    @RequestMapping("/editRental/{v_id}")
+    public ModelAndView showEditRentalPage(@PathVariable(name = "u_id") int id) {
+        ModelAndView mav = new ModelAndView("adminAddRental");
         Rental rent = servAdmin.get(id);
         mav.addObject("rental", rent);
         return mav;
@@ -55,44 +55,44 @@ public class AdminController {
 
     //delete Rental
     @RequestMapping("/delete/{v_id}")
-    public String deleteRental(@PathVariable(name = "v_id") int id) {
+    public String deleteRental(@PathVariable(name = "u_id") int id) {
         servAdmin.deleteRental(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
-    //View all Customers
-    @RequestMapping("/customer")
-    public String viewCustomers(Model model) {
+    //View all Users
+    @RequestMapping("/adminUserView")
+    public String viewUsers(Model model) {
         List<User> listrentals = servAdmin.listAllUsers();
         model.addAttribute("listrental", listrentals);
-        System.out.print("Get /customer ");
-        return "customer";
+        System.out.print("Get /user ");
+        return "adminUserView";
     }
 
-    //Save Customer details
+    //Save User details
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveCustomer(@ModelAttribute("rental") User usr) {
+    public String saveUser(@ModelAttribute("rental") User usr) {
         servAdmin.save(usr);
-        return "redirect:/";
+        return "redirect:/adminUserView";
     }
 
-    //Edit customer details
-    @RequestMapping("/edit/{c_id}")
-    public ModelAndView showEditCustomerPage(@PathVariable(name = "c_id") int id) {
-        ModelAndView mav = new ModelAndView("editCustomer");
+    //Edit User details
+    @RequestMapping("/editUser/{c_id}")
+    public ModelAndView showEditUserPage(@PathVariable(name = "u_id") int id) {
+        ModelAndView mav = new ModelAndView("adminUserView");
         User usr = servAdmin.getUser(id);
         mav.addObject("user", usr);
         return mav;
     }
 
-    //delete customer
+    //delete User
     @RequestMapping("/delete/{v_id}")
-    public String deleteCustomer(@PathVariable(name = "c_id") int id) {
+    public String deleteUser(@PathVariable(name = "u_id") int id) {
         servAdmin.deleteRental(id);
-        return "redirect:/";
+        return "redirect:/adminUserView";
     }
 
-    //view all rental requests
+    //view all rental requests(NOT PRIORITY)
 
     //accept or deny request
 }

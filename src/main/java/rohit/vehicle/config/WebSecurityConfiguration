@@ -20,8 +20,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider
-                 = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return  provider;
@@ -30,8 +29,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/")
-                .permitAll()
+                // .antMatchers("/")
+                // .permitAll()
                 .antMatchers("/home")
                 .hasAuthority("USER")
                 .antMatchers("/admin")

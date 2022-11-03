@@ -28,4 +28,10 @@ public class MainController {
     public String loginAdmin() {
         return "redirect:/";
     }
+
+    //register
+    @RequestMapping(path="/register", method = RequestMethod.POST)
+    public String registerUser() {
+        return "redirect:/";
+    }
 }
