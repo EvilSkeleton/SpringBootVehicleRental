@@ -3,8 +3,11 @@ package rohit.vehicle.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import rohit.vehicle.domain.Rental;
+import rohit.vehicle.exception.ResourceNotFoundException;
 import rohit.vehicle.repository.RentalRepository;
 
 @Service
@@ -25,7 +28,14 @@ public class UserService {
 
     //locate by id from vehicles
     public Rental get(Integer id) {
-        return rentRepo.findById(id).get();
+        Rental rental = rentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found rental with id = " + id));
+        // rental.setV_id(rental.getV_id());
+        rental.setV_name(rental.getV_name());
+        rental.setV_status(rental.getV_status());
+        rental.setV_model(rental.getV_model());
+        rental.setV_cust(rental.getV_cust());
+        // return new ResponseEntity<>(rentRepo.save(rental), HttpStatus.OK);
+        return rental;
     }
 
     //finish rental
