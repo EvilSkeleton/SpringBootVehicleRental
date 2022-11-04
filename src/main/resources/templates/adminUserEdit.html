@@ -30,7 +30,7 @@
 					<a class="nav-link" th:href="@{'/adminRental'}">All Rentals</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link active" th:href="@{'/adminAddRental'}">Add New Rentals</a>
+					<a class="nav-link" th:href="@{'/adminAddRental'}">Add New Rentals</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link" th:href="@{'/adminUserView'}">All Customers</a>
@@ -42,37 +42,37 @@
 	  </header>
 
 	<div align="center">
-		<h1>Create New Rental</h1>
+		<h1>Edit User</h1>
 		<br />
 		<div class="col-sm-4">
-			<form action="#" th:action="@{/saveRental}" th:object="${rental}" method="post">
+			<form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
 
 
 				<div alight="left">
 					<tr>
-						<label class="form-label">Rental Name</label>
-						<td><input type="hidden" th:field="*{v_id}" /> <input type="text" th:field="*{v_name}"
-								class="form-control" placeholder="Rental Name" /></td>
+						<label class="form-label">Username</label>
+						<td><input type="hidden" th:field="*{id}" /> <input type="text" th:field="*{username}"
+								class="form-control" placeholder="Username" /></td>
 					</tr>
 				</div>
 
 				<div alight="left">
 
 					<tr>
-						<label class="form-label">Rental Status</label>
-						<td>
-							<select class="form-control" th:field="*{v_status}" aria-placeholder="Status">
-								<option value="Idle">Idle</option>
-								<option value="Running">Running</option>
+						<label class="form-label">Password</label>
+						<td><input type="text" th:field="*{password}" class="form-control" placeholder="Password" /></td>
+					</tr>
+				</div>
+				<div alight="left">
+					<tr>
+						<label class="form-label">Role</label>
+                        <td>
+							<select class="form-control" th:field="*{role}" aria-placeholder="Role">
+								<option value="USER">User</option>
+								<option value="ADMIN">Admin</option>
 							</select>
 						</td>
-					</tr>
-				</div>
-				<div alight="left">
-					<tr>
-						<label class="form-label">Rental Model</label>
-						<td><input type="text" th:field="*{v_model}" class="form-control" placeholder="Model" /></td>
-					</tr>
+						</tr>
 				</div>
 				<br>
 				<tr>

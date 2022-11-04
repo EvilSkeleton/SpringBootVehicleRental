@@ -23,30 +23,39 @@ public class AdminController {
 
     //Home(Also the page for viewing all rentals)
     @GetMapping("/admin")
-    public String viewHomePage(Model model) {
+    public String viewHomePage() {
+        // List<Rental> listrentals = servAdmin.listAll();
+        // model.addAttribute("listrental", listrentals);
+        System.out.print("Get /admin ");
+        return "admin";
+    }
+
+    //View all rentals
+    @GetMapping("/adminRental")
+    public String viewRentalsPage(Model model) {
         List<Rental> listrentals = servAdmin.listAll();
         model.addAttribute("listrental", listrentals);
-        System.out.print("Get / ");
-        return "admin";
+        System.out.print("Get /adminrental ");
+        return "adminRental";
     }
  
     //Add New Rental
     @GetMapping("/adminAddRental")
-    public String add(Model model) {
+    public String addRental(Model model) {
         model.addAttribute("rental", new Rental());
         return "adminAddRental";
     }
  
     //Save Rental details
     @RequestMapping(value = "/saveRental", method = RequestMethod.POST)
-    public String saveRental(@ModelAttribute("rental") Rental rent) {
+    public String saveRentalAdmin(@ModelAttribute("rental") Rental rent) {
         servAdmin.saveRental(rent);
-        return "redirect:/admin";
+        return "redirect:/adminRental";
     }
  
     //Edit Rental details
     @RequestMapping("/editRental/{v_id}")
-    public ModelAndView showEditRentalPage(@PathVariable(name = "u_id") int id) {
+    public ModelAndView showEditRentalPage(@PathVariable(name = "v_id") int id) {
         ModelAndView mav = new ModelAndView("adminAddRental");
         Rental rent = servAdmin.get(id);
         mav.addObject("rental", rent);
@@ -54,42 +63,49 @@ public class AdminController {
     }
 
     //delete Rental
-    @RequestMapping("/delete/{v_id}")
-    public String deleteRental(@PathVariable(name = "u_id") int id) {
+    @RequestMapping("/deleteRental/{v_id}")
+    public String deleteRental(@PathVariable(name = "v_id") int id) {
         servAdmin.deleteRental(id);
-        return "redirect:/admin";
+        return "redirect:/adminRental";
     }
 
     //View all Users
     @RequestMapping("/adminUserView")
     public String viewUsers(Model model) {
-        List<User> listrentals = servAdmin.listAllUsers();
-        model.addAttribute("listrental", listrentals);
+        List<User> listuser = servAdmin.listAllUsers();
+        model.addAttribute("listuser", listuser);
         System.out.print("Get /user ");
         return "adminUserView";
     }
 
     //Save User details
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("rental") User usr) {
         servAdmin.save(usr);
         return "redirect:/adminUserView";
     }
 
     //Edit User details
-    @RequestMapping("/editUser/{c_id}")
-    public ModelAndView showEditUserPage(@PathVariable(name = "u_id") int id) {
-        ModelAndView mav = new ModelAndView("adminUserView");
+    @RequestMapping("/editUser/{id}")
+    public ModelAndView showEditUserPage(@PathVariable(name = "id") int id) {
+        ModelAndView mav = new ModelAndView("adminUserEdit");
         User usr = servAdmin.getUser(id);
         mav.addObject("user", usr);
         return mav;
     }
 
     //delete User
-    @RequestMapping("/delete/{v_id}")
-    public String deleteUser(@PathVariable(name = "u_id") int id) {
-        servAdmin.deleteRental(id);
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable(name = "id") int id) {
+        servAdmin.deleteusr(id);
         return "redirect:/adminUserView";
+    }
+
+    //Add New User
+    @GetMapping("/adminAddUser")
+    public String addUser(Model model) {
+        model.addAttribute("user", new User());
+        return "adminUserEdit";
     }
 
     //view all rental requests(NOT PRIORITY)

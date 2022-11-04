@@ -34,13 +34,13 @@
                 <a class="nav-link" th:href="@{'/admin'}">Dashboard</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" th:href="@{'/adminRental'}">All Rentals</a>
+                <a class="nav-link active" th:href="@{'/adminRental'}">All Rentals</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" th:href="@{'/adminAddRental'}">Add New Rentals</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" th:href="@{'/adminUserView'}">All Customers</a>
+                <a class="nav-link" th:href="@{'/adminUserView'}">All Customers</a>
               </li>
             </ul>
           </div>
@@ -56,22 +56,22 @@
             <table class="table">
               <thead class="thead-dark">
                 <tr>
-                  <th>User ID</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Role</th>
+                  <th>Rental ID</th>
+                  <th>Rental Name</th>
+                  <th>Rental Status</th>
+                  <th>Rental Model</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="user : ${listuser}">
-                  <td th:text="${user.id}">User ID</td>
-                  <td th:text="${user.username}">Username</td>
-                  <td th:text="${user.password}">Password</td>
-                  <td th:text="${user.role}">Role</td>
-                  <td><a th:href="@{'/editUser/' + ${user.id}}">Edit</a></td>
-                  <td><a th:href="@{'/deleteUser/' + ${user.id}}">Delete</a>
+                <tr th:each="rental : ${listrental}">
+                  <td th:text="${rental.v_id}">Rental ID</td>
+                  <td th:text="${rental.v_name}">Rental Name</td>
+                  <td th:text="${rental.v_status}">Rental Status</td>
+                  <td th:text="${rental.v_model}">Rental Model</td>
+                  <td><a th:href="@{'/editRental/' + ${rental.v_id}}">Edit</a></td>
+                  <td><a th:href="@{'/deleteRental/' + ${rental.v_id}}">Delete</a>
                   </td>
                 </tr>
               </tbody>
@@ -82,7 +82,7 @@
       <tr>
         <div align="center">
           <h3>
-            <a type="button" class="w-100 btn btn-lg" th:href="@{'/adminAddUser'}">Add new</button>
+            <a type="button" class="w-100 btn btn-lg" th:href="@{'/adminAddRental'}">Add new</button>
           </h3>
         </div>
       </tr>

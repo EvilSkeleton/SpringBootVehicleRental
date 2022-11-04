@@ -22,20 +22,14 @@ public class UserService {
     }
 
     //edit rental details(Rental Status)
-    public void saveRental(Rental rent) {
+    public void saveRentalUser(Rental rent) {
         rentRepo.save(rent);
     }
 
-    //locate by id from vehicles
+    //locate by id from vehicles  @PathVariable("id") long id, @RequestBody Tutorial tutorial
     public Rental get(Integer id) {
-        Rental rental = rentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found rental with id = " + id));
-        // rental.setV_id(rental.getV_id());
-        rental.setV_name(rental.getV_name());
-        rental.setV_status(rental.getV_status());
-        rental.setV_model(rental.getV_model());
-        rental.setV_cust(rental.getV_cust());
-        // return new ResponseEntity<>(rentRepo.save(rental), HttpStatus.OK);
-        return rental;
+        return rentRepo.findById(id).get();
+        // return rental;
     }
 
     //finish rental

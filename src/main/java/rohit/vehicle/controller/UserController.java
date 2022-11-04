@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +46,7 @@ public class UserController {
     public String saveRental(@ModelAttribute("rental") Rental rent) {
         rent.setV_status("Running");
         // rent.setV_cust("Rohit");
-        service.saveRental(rent);
+        service.saveRentalUser(rent);
         return "redirect:/user";
     }
  

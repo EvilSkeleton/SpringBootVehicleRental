@@ -1,12 +1,16 @@
 package rohit.vehicle.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 // @Table(name="admin",schema="targetSchemaName")
 public class Admin {
-	// @Id
-    // @GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer a_id;
     private String a_user;
     private String a_pass;
     public Admin() {}
